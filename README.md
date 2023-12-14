@@ -8,19 +8,19 @@ Automatically encrypt and decrypt fields in your Models.
 ## Install
 ### 1. Composer
 ```bash
-composer require chr15k/laravel-mysql-encrypt
+composer require dhara15101991/laravel-mysql-encrypt
 ```
 
 ### 2. Publish config (optional)
 `Laravel`
 ```bash
-php artisan vendor:publish --provider="Chr15k\MysqlEncrypt\Providers\LaravelServiceProvider"
+php artisan vendor:publish --provider="dhara15101991\MysqlEncrypt\Providers\LaravelServiceProvider"
 ```
 
 `Lumen`
 ```bash
 mkdir -p config
-cp vendor/chr15k/laravel-mysql-encrypt/config/config.php config/mysql-encrypt.php
+cp vendor/dhara15101991/laravel-mysql-encrypt/config/config.php config/mysql-encrypt.php
 ```
 
 ### 3. Configure Provider
@@ -30,14 +30,14 @@ cp vendor/chr15k/laravel-mysql-encrypt/config/config.php config/mysql-encrypt.ph
 - For Laravel 5.4 or earlier, add the following to `config/app.php`:
 ```php
 'providers' => array(
-    Chr15k\\MysqlEncrypt\\Providers\\LaravelServiceProvider::class
+    dhara15101991\\MysqlEncrypt\\Providers\\LaravelServiceProvider::class
 );
 ```
 
 `Lumen`
 - For Lumen, add the following to `bootstrap/app.php`:
 ```php
-$app->register(Chr15k\MysqlEncrypt\Providers\LumenServiceProvider::class);
+$app->register(dhara15101991\MysqlEncrypt\Providers\LumenServiceProvider::class);
 ```
 
 ### 4. Set encryption key in `.env` file
@@ -51,7 +51,7 @@ APP_AESENCRYPT_KEY=yourencryptionkey
 
 namespace App;
 
-use Chr15k\MysqlEncrypt\Traits\Encryptable;
+use dhara15101991\MysqlEncrypt\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
