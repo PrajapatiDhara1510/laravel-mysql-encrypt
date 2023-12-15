@@ -1,8 +1,8 @@
 <?php
 
-namespace Chr15k\MysqlEncrypt\Traits;
+namespace PrajapatiDhara1510\MysqlEncrypt\Traits;
 
-use Chr15k\MysqlEncrypt\Scopes\DecryptSelectScope;
+use PrajapatiDhara1510\MysqlEncrypt\Scopes\DecryptSelectScope;
 
 trait Encryptable
 {
@@ -37,7 +37,7 @@ trait Encryptable
         return $this->encryptable ?? [];
     }
 
-   /**
+    /**
      * where for encrypted columns
      *
      * @param $query
@@ -110,5 +110,76 @@ trait Encryptable
     {
         /** @var Builder $query */
         return $query->orderByRaw(db_decrypt_string($column, $direction, ''));
+    }
+
+    /**
+     * where for encrypted columns like
+     *
+     * @param $query
+     * @param $column
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function scopeWhereEncryptedLike($query, $column, $value)
+    {
+        /** @var Builder $query */
+        return $query->whereRaw(db_decrypt_string_like($column, $value));
+    }
+
+    /**
+     * orWhere not for encrypted columns like
+     *
+     * @param $query
+     * @param $column
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function scopeOrWhereEncryptedLike($query, $column, $value)
+    {
+        /** @var Builder $query */
+        return $query->orWhereRaw(db_decrypt_string_like($column, $value));
+    }
+
+    /**
+     * orderBy for encrypted columns
+     *
+     * @param $query
+     * @param $column
+     * @param $direction
+     *
+     * @return mixed
+     */
+    public function scopeOrderByEncryptedSort($query, $column, $direction)
+    {
+        /** @var Builder $query */
+        return $query->orderByRaw(db_decrypt_string_sort($column, $direction));
+    }
+
+    /**
+     * whereIn for encrypted columns
+     *
+     * @param $query
+     * @param $column
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function scopeWhereInEncrypted($query, $column, $value)
+    {
+        /** @var Builder $query */
+        if (is_array($value) || $value->count() > 1) {
+            for ($i = 0; $i < count($value); $i++) {
+                if ($i === 0) {
+                    $query->whereRaw(db_decrypt_string($column, $value[$i]));
+                } else {
+
+                    $query->orWhereRaw(db_decrypt_string($column, $value[$i]));
+                }
+            }
+            return $query;
+        }
+        return $query->whereRaw(db_decrypt_string($column, $value));
     }
 }

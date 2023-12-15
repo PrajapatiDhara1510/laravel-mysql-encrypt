@@ -1,9 +1,9 @@
 <?php
 
-namespace Chr15k\MysqlEncrypt\Providers;
+namespace PrajapatiDhara1510\MysqlEncrypt\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Chr15k\MysqlEncrypt\Traits\ValidatesEncrypted;
+use PrajapatiDhara1510\MysqlEncrypt\Traits\ValidatesEncrypted;
 
 class LumenServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class LumenServiceProvider extends ServiceProvider
     {
         $this->app->configure('mysql-encrypt');
 
-        $path = realpath(__DIR__.'/../../config/config.php');
+        $path = realpath(__DIR__ . '/../../config/config.php');
 
         $this->mergeConfigFrom($path, 'mysql-encrypt');
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chr15k\MysqlEncrypt\Scopes;
+namespace PrajapatiDhara1510\MysqlEncrypt\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +26,7 @@ class DecryptSelectScope implements Scope
             return $builder->addSelect(...$columns);
         }
 
-        $select = collect($columns)->map(function($column) use ($encryptable) {
+        $select = collect($columns)->map(function ($column) use ($encryptable) {
             return (in_array($column, $encryptable)) ? db_decrypt($column) : $column;
         });
 

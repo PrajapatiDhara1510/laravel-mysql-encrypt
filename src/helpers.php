@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 
-if (! function_exists('db_encrypt')) {
+if (!function_exists('db_encrypt')) {
     /**
      * Encrypt value.
      *
@@ -17,7 +17,7 @@ if (! function_exists('db_encrypt')) {
     }
 }
 
-if (! function_exists('db_decrypt')) {
+if (!function_exists('db_decrypt')) {
     /**
      * Decrpyt value.
      *
@@ -32,8 +32,7 @@ if (! function_exists('db_decrypt')) {
     }
 }
 
-
-if (! function_exists('db_decrypt_string')) {
+if (!function_exists('db_decrypt_string')) {
     /**
      * Decrpyt value.
      *
@@ -44,6 +43,36 @@ if (! function_exists('db_decrypt_string')) {
      */
     function db_decrypt_string($column, $value, $operator = 'LIKE')
     {
-        return 'AES_DECRYPT('.$column.', "'.config("mysql-encrypt.key").'") '.$operator.' "'.$value.'" COLLATE utf8mb4_general_ci';
+        return 'AES_DECRYPT(' . $column . ', "' . config("mysql-encrypt.key") . '") ' . $operator . ' "' . $value . '" COLLATE utf8mb4_general_ci';
+    }
+}
+
+if (!function_exists('db_decrypt_string_like')) {
+    /**
+     * Decrpyt value.
+     *
+     * @param string $column
+     * @param string $value
+     * @param string $operator
+     * @return string
+     */
+    function db_decrypt_string_like($column, $value, $operator = 'LIKE')
+    {
+        return 'AES_DECRYPT(' . $column . ', "' . config("mysql-encrypt.key") . '") ' . $operator . ' "%' . $value . '%" COLLATE utf8mb4_general_ci';
+    }
+}
+
+if (!function_exists('db_decrypt_string_sort')) {
+    /**
+     * Decrpyt value.
+     *
+     * @param string $column
+     * @param string $value
+     * @param string $operator
+     * @return string
+     */
+    function db_decrypt_string_sort($column, $value)
+    {
+        return 'AES_DECRYPT(' . $column . ', "' . config("mysql-encrypt.key") . '") ' . $value;
     }
 }
